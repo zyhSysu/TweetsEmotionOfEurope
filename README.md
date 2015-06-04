@@ -26,6 +26,12 @@ bash compile.sh
 ```
 
 ### Run
+Before you run the application, we should edit the run.sh script. Input your own "<consumerKey> <consumerSecret> <accessToken> <accessTokenSecret>" of Twitter Application to the script.
+
+```
+spark-submit --class TwitterEconomy target/TwitterMovie-1.0-jar-with-dependencies.jar <consumerKey> <consumerSecret> <accessToken> <accessTokenSecret>
+```
+
 Run the script run.sh.
 
 ```

@@ -29,7 +29,7 @@ bash compile.sh
 Run the script run.sh.
 
 ```
-        bash run.sh
+bash run.sh
 ```
 
 This submits the application to spark master.

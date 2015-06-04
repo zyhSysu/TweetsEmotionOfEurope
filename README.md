@@ -19,8 +19,11 @@ To compile the project, you should make sure Apache Maven has been installed in 
 
 ### Compile
 Run the script compile.sh to compile the project.
+
+```
 Command:
         bash compile.sh
+```
 
 ### Run
 Run the script run.sh.

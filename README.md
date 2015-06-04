@@ -11,7 +11,8 @@ Twitter4j is a Java library for twitter API, through this API we can develop our
 Stanford NLP is a natural language processing toolkit developed by Natural Language Processing Group at Stanford University. We can estimate the mood of each tweet via this toolkit.
 
 ## Requirement
-Apache Maven 3.3.3 \n
+Apache Maven 3.3.3
+
 Spark 1.3.1
 
 ## How to use
@@ -21,12 +22,14 @@ To compile the project, you should make sure Apache Maven has been installed in 
 Run the script compile.sh to compile the project.
 
 ```
-Command:
-        bash compile.sh
+bash compile.sh
 ```
 
 ### Run
 Run the script run.sh.
-Command:
+
+```
         bash run.sh
+```
+
 This submits the application to spark master.

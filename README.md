@@ -1,7 +1,10 @@
 # TweetsEmotionOfEurope
 This project can help investigate the mood of people posting tweets on twitter. Project is mainly based on three components:
+
 1. Spark Streaming
+
 2. Twitter4j
+
 3. Stanford NLP
 
 Spark Streaming is an interesting extension to Spark that adds support for continuous stream processing to Spark. Spark Streaming inherit the data processing ability of Spark, and also support stream processing.

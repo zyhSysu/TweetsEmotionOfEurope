@@ -159,8 +159,8 @@ public class TwitterMood {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		if (args.length < 4) {
-			System.out.println("Usage: java TwitterMood <consumerKey> <consumerSecret> <accessToken> <accessTokenSecret>");
+		if (args.length < 5) {
+			System.out.println("Usage: java TwitterMood <consumerKey> <consumerSecret> <accessToken> <accessTokenSecret> <JSON outputpath>");
 			
 			System.exit(1);
 		}

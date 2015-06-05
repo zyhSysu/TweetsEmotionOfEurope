@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <style type="text/css">
+	a:link {
+	 text-decoration: none;
+	 font-weight:bold;
+	 color:black;
+	}
+	a:visited {
+	 text-decoration: none;
+	 font-weight:bold;
+	 color:black;
+	}
+	a:hover {
+	 text-decoration: none;
+	 font-weight:bold;
+	 color:#2997f2;
+	}
+	a:active {
+	 text-decoration: none;
+	 font-weight:bold;
+	 color:black;
+	}
+	
+    body,div{margin: 0; padding:0;}
+    body{background:#D7D7CD;padding-top:80px;}
+    #vmap{position: relative; float: left; width: 1053.184px; height: 805.376px; border: 4px solid #847967; margin-right: 25px; margin-left: 0px;}
+	#vmap img{position: absolute; height: 180px; bottom: 10px; left: 10px;}
+    #container{overflow:hidden;
+		zoom:1;
+		background-color:rgba(255,255,255,0.3);
+		border-color: #ccc;
+		border: 1px solid rgba(152,147,142,.25);
+		border-bottom-width: 6px;
+		padding-bottom: 2em;
+		z-index: 111;
+		-moz-border-radius: .34em;
+		-webkit-border-radius: .34em;
+		border-radius: .34em;
+    }
+    #container{position: relative; float: left; height: 780px; width: 500px; border: 4px; margin-left: 25px;}
+    #container h1{font-size: 5em; color: #000; text-align: center; font: "Times Roman"; margin-top: 8px; margin-bottom: 0px;}
+    #container h2{font:normal 1.34em Georgia,Times, serif; margin-top: 0; text-align: center;}
+    #container p{font:normal .95em/1.5em 'Lucida Grande',Helvetica,Arial,sans-serif;  margin: 2em auto;padding: 0 25px;}
+    #imgdiv{position: absolute; bottom: 0; right: 0;}
+    #imgdiv ul{list-style-type: none;}
+    #imgdiv li{display: inline; line-height: 1.5em;}
+    #imgdiv li img{width: 50px;height: 50px;border-radius: .44em;}
+	#author-info {position: absolute; bottom: 0;}
+    </style>
+	
+    <title>European Economy Analysis</title>
+    
+    <link href="jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
+    
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="jqvmap/jquery.vmap.js" type="text/javascript"></script>
+    <script src="jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+    
+	<script type="text/javascript">
+	var map;
+	
+	function updateColor() {
+
+		$.getJSON("colorData/colors.json", function(data) {
+			map.vectorMap('set', 'colors', data);
+		});
+	}
+		
+	function setCenter() {
+		var windowWidth = Number($(window).width());
+		var mapWidth = Number($("#vmap").css("width").substr(0, $("#vmap").css("width").length - 2));
+		var containerWidth = Number($("#container").css("width").substr(0, $("#container").css("width").length - 2));
+		var gap1 = Number($("#vmap").css("margin-right").substr(0, $("#vmap").css("margin-right").length - 2));
+		var gap2 = Number($("#container").css("margin-left").substr(0, $("#container").css("margin-left").length - 2));
+
+		var vmapMarginLeft;	
+
+		if (mapWidth + containerWidth + gap1 + gap2 <= windowWidth) {
+
+			var vmapMarginLeft = Number((windowWidth - (mapWidth + containerWidth + gap1 + gap2))/2.0);
+			document.getElementById("vmap").style.marginLeft = vmapMarginLeft.toString() + "px";
+
+		} else {
+
+			document.getElementById("vmap").style.border = "1px";
+			document.getElementById("vmap").style.marginLeft = "0px";
+			document.getElementById("container").style.marginRight = "0px";
+			document.getElementById("vmap").style.marginRight = "0px";
+			document.getElementById("container").style.marginLeft = "0px";
+
+		}
+
+	}
+	
+	jQuery(document).ready(function() {
+	
+		setCenter();
+
+		map = jQuery('#vmap');
+	
+		map.vectorMap({
+		    map: 'europe_en',
+		    enableZoom: false,
+		    showTooltip: true,
+			borderOpacity: 0.8,
+			boardColor: "#847967",
+			//	color: "#C7C794",
+			color: "#ffffff",
+			backgroundColor: "#D7D7CD",
+			//	hoverColor: "#BBBB69"
+			hoverOpacity: 0.5,
+		});
+		
+		//setCenter();
+
+		setInterval(updateColor, 10000);
+		$(window).resize(setCenter);
+	});
+	</script>
+  </head>
+  <body>
+
+		  <div id="vmap">
+			  <img style="" src="img/illustration.png">
+		  </div>			<!-- display the map -->
+
+      <div id="container">
+        <h1>
+          Economy 
+        </h1>
+        <h2>European Economy Analysis via Twitter</h2>
+        <p>
+			European Union plays an important role in the world. Since the international influence depends greatly on economy, 
+			I'm curious about the situation of European economy. 
+        </p>
+		<p>
+			<a href="https://twitter.com/">Twitter</a> is a gorgeous social network, tens of thousands of people tweet their daily life
+			and comments on twitter. By analysing the tweets from Europe, I want to investigate how optimistic European folks are about 
+			their country's economy. <a href="http://twitter4j.org/en/index.html">Twitter4j</a> is the java API of twitter, through twitter4j 
+			we can collect tweets posted in twitter in real time.
+		</p>
+		<p>
+			Considering there are numerous tweets need to be processed, we choose the famous big-data processing platform: <a href="https://spark.apache.org/">spark</a> 
+			to be the data-processing engine. <a href="https://spark.apache.org/streaming/">Spark streaming</a> extending from the spark 
+			core inherits the big-data processing ability and can also process real-time streaming data coming from multiple sources
+			(<a href="http://aws.amazon.com/kinesis/">Kinesis</a>, <a href="https://flume.apache.org/">Flume</a>, <a href="https://twitter.com/">Twitter</a> etc.).
+		</p>
+		<p>
+			<a href="http://nlp.stanford.edu/software/index.shtml">Stanford NLP</a> is an excellent tools to do natural language processing. 
+			Standford NLP is developed by the <a href="http://nlp.stanford.edu/">Natural Language Processing Group at Stanford University</a>. 
+			NLP can help analysis the sentiment of each tweet.
+		</p>
+		<p>
+			By leveraging the above-mention tools, I develop the European Economy Analysis System. I use the jquery plugin: <a href="http://jqvmap.com/">jqvmap</a> to develop 
+			the front-end display platform.
+		</p>
+        <div id="imgdiv">
+          <ul>
+            <li><img src="img/1.jpg"></li>
+            <li><img src="img/2.png"></li>
+            <li><img src="img/3.png"></li>
+            <li><img src="img/4.png"></li>
+          </ul>
+        </div>
+		<div id="author-info">
+			<p><strong>Released by <a href="https://github.com/zyhSysu"><i>Yuanhuan Zheng</i></strong></a></p>
+		</div>
+      </div>
+
+ 
+    
+  </body>
+</html>
